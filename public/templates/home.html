@@ -1,0 +1,62 @@
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <h1 class="text-center">BeerList</h1>
+                <div class="page-header">
+                </div>
+                <!-- render beers here -->
+                <div class="displayBeers" ng-repeat="beer in allBeers track by $index">
+                <a ui-sref="beer({id: beer._id, beerParam: beer})">Reviews</a>
+                    <div ng-if="!tempBeer[$index]">
+                    <!-- we want to display the form whilst editing -->
+                    <h3>{{beer._id}}---{{beer.name}}</h3><!-- <input type="text" ng-if="show" ng-model="tempBeer[$index].name"> -->
+                    <p>{{beer.style}}</p><!-- <input type="text" ng-if="show" ng-model="beer.style"> -->
+                    <em>{{beer.abv}}%</em><!-- <input type="text" ng-if="show" ng-model="beer.abv">-->
+                    <img ng-src="{{beer.image_url}}"> 
+                    <p>{{beer.rating}} {{beer.averageRating}}</p>
+                    <button type="button" class="btn btn-primary" ng-click="editBeer($index)">Edit</button>
+                    <button type="button" class="btn btn-danger" ng-click="removeFromMyCollection(beer)">Remove</button>
+                    </div>
+    <!-- we want to display the form whilst editing -->
+    <form ng-if="tempBeer[$index]">
+        <!-- all inputs are bound to the temporary beer -->
+        <input type="text" ng-model="tempBeer[$index].name">
+        <input type="text" ng-model="tempBeer[$index].style">
+        <input type="text" ng-model="tempBeer[$index].abv">
+        <!-- if cancel is pressed, all we need to do is remove the tempBeer -->
+        <button type="button" ng-click="tempBeer[$index] = null">Cancel</button>
+        <button type="button" ng-click="updateBeer($index)">Submit</button>
+    </form>
+
+                    <div class="form-group">
+                      <label for="sel1">Rate Your Fav Beeer</label>
+                      <select class="form-control" id="sel1" ng-model="rating">
+                        <option>0</option>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                      </select>
+                      <button type="button" class="btn btn-primary" ng-click="addRatingToBeer(beer,rating)">Rate it !</button>
+                    </div>
+                    <button type="button" class="btn btn-primary" ng-click="sortByRating(beer)">Sort it !</button>
+                    
+                </div>
+                <form ng-submit="addToMyCollection()">
+                    <h3>Add a new beer</h3>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Beer Name" ng-model="name"></input>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Style" ng-model="style"></input>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="ABV" ng-model="abv"></input>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Image URL" ng-model="img"></input>
+                    </div>
+                    <button type="button" class="btn btn-primary" ng-click="addToMyCollection(beer)">Add</button>
+                </form>
+            </div>
+        </div>

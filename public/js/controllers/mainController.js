@@ -6,7 +6,7 @@ app.controller('beerController', function($scope,beerService) {
 		var beer = {name: $scope.name,
 			style: $scope.style,
 			abv: $scope.abv,
-			img: $scope.img,
+			image_url: $scope.img,
 			rating: $scope.rating
 		};
 

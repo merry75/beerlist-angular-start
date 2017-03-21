@@ -11,6 +11,12 @@ app.service('beerService', function($http){
 
   var test = "Im alive from the service"; 
 
+  beerService.reviews = [] ;
+
+  beerService.addToMyReviews = function (review, id) {
+    return $http.post('/beers/' + id + '/reviews', review)
+  };
+
   beerService.addToMyCollection = function(beer){
     // console.log(beers);
   	var index = beerService.indexInMyCollection(beer);
@@ -73,6 +79,15 @@ beerService.getBeers = function () {
     return $http.put('/beers/' + beer._id, beer)
       .then(function(response) {
         return response.data
+      });
+  };
+
+    beerService.getBeer = function(id) {
+    return $http.get('/beers/' + id)
+      .then(function(response) {
+        return response.data
+      }, function(err) {
+        console.error(err)
       });
   };
 
